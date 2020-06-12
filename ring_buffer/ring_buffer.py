@@ -6,14 +6,15 @@ class RingBuffer:
 
     def append(self, item):
         self.storage[self.current] = item
-        self.advance()
-
-    def advance(self):
-        if self.current == self.capacity - 1:
-            self.current = 0
-        else:
+        if self.current < self.capacity - 1:
             self.current += 1
+        else:
+            self.current = 0
 
     def get(self):
-        buffer = [item for item in self.storage if item is not None]
-        return buffer
+        items = []
+        for i in self.storage:
+            if i is not None:
+                items.append(i)
+        # print(items)
+        return items
